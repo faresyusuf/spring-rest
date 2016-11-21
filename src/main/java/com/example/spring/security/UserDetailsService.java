@@ -1,5 +1,7 @@
 package com.example.spring.security;
 
+import com.example.spring.domain.User;
+import com.example.spring.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,18 +26,17 @@ public class UserDetailsService implements org.springframework.security.core.use
 
     private final Logger log = LoggerFactory.getLogger(UserDetailsService.class);
 
-    /*@Inject
+    @Inject
     private UserRepository userRepository;
-    */
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(final String login) {
         log.debug("Authenticating {}", login);
         String lowercaseLogin = login.toLowerCase(Locale.ENGLISH);
-        /*Optional<User> userFromDatabase = userRepository.findOneByLogin(lowercaseLogin);
+        Optional<User> userFromDatabase = userRepository.findOneByLogin(lowercaseLogin);
         return userFromDatabase.map(user -> {
-            if (!user.getActivated()) {
+            if (!user.isActivated()) {
                 throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
             }
             List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
@@ -45,11 +46,11 @@ public class UserDetailsService implements org.springframework.security.core.use
                     user.getPassword(),
                     grantedAuthorities);
         }).orElseThrow(() -> new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the " +
-                "database"));*/
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+                "database"));
+        /*List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         return new org.springframework.security.core.userdetails.User(lowercaseLogin,
                 lowercaseLogin,
-                grantedAuthorities);
+                grantedAuthorities);*/
     }
 
 }

@@ -4,3 +4,9 @@ server:
 spring:
     application:
         name: spring-rest
+    jpa:
+        open-in-view: false
+        hibernate:
+            ddl-auto: none
+            naming:
+                strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy

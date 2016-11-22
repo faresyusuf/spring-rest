@@ -10,16 +10,13 @@ import javax.validation.constraints.Size;
  * View Model object for storing a user's credentials.
  */
 public class LoginVM {
-    public static final int PASSWORD_MIN_LENGTH = 4;
-    public static final int PASSWORD_MAX_LENGTH = 100;
-
     @Pattern(regexp = Constants.LOGIN_REGEX)
     @NotNull
     @Size(min = 1, max = 50)
     private String username;
 
     @NotNull
-    @Size(min = LoginVM.PASSWORD_MIN_LENGTH, max = LoginVM.PASSWORD_MAX_LENGTH)
+    @Size(min = ManagedUserVM.PASSWORD_MIN_LENGTH, max = ManagedUserVM.PASSWORD_MAX_LENGTH)
     private String password;
 
     private Boolean rememberMe;

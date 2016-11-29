@@ -36,7 +36,7 @@ public class AsyncConfiguration implements AsyncConfigurer {
         executor.setThreadNamePrefix("application-Executor-");
         return new ExceptionHandlingAsyncTaskExecutor(executor);
     }
-
+    
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
         return new SimpleAsyncUncaughtExceptionHandler();

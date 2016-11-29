@@ -1,6 +1,8 @@
 package com.example.spring.config;
 
 import com.example.spring.security.Http401UnauthorizedEntryPoint;
+import com.example.spring.security.jwt.JWTConfigurer;
+import com.example.spring.security.jwt.TokenProvider;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,8 +34,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Inject
     private UserDetailsService userDetailsService;
 
-    //@Inject
-    //private TokenProvider tokenProvider;
+    @Inject
+    private TokenProvider tokenProvider;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -87,19 +89,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/account/reset_password/finish").permitAll()
                 .antMatchers("/api/profile-info").permitAll()
                 .antMatchers("/api/auth").permitAll()
+                .antMatchers("/api/foradmin").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/v2/api-docs/**").permitAll()
                 .antMatchers("/swagger-resources/configuration/ui").permitAll()
-        //.antMatchers("/swagger-ui/index.html").hasAuthority(AuthoritiesConstants.ADMIN)
-        //.and()
-        //.apply(securityConfigurerAdapter())
+                .and()
+                .apply(securityConfigurerAdapter())
         ;
 
     }
 
-    /*private JWTConfigurer securityConfigurerAdapter() {
+    private JWTConfigurer securityConfigurerAdapter() {
         return new JWTConfigurer(tokenProvider);
-    }*/
+    }
 
     /*@Bean
     public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
